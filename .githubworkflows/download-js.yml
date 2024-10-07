@@ -1,0 +1,23 @@
+name: Download JS file
+on:
+  schedule:
+    - cron: '23 00 * * *' # 每天早上 7 点执行
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Download JS file
+        run: |
+          # 使用 wget 或 curl 等工具下载文件，假设网址格式为 https://example.com/js/${{ github.run_number }}.js 
+          curl -o js-file.js https://iclasscloud.cretech.cn/livecloudm/js/hapi/Live.php?flag=$(date +%Y%m%d)&app_version=1.0.0&official=1&type=3
+      - name: Commit and push if file changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config --global user.email "ytkevin0908@126.com"
+            git config --global user.name "Kevin"
+            git add js-file.js
+            git commit -m "Update JS file"
+            git push
+          fi
