@@ -1,7 +1,7 @@
 name: Download JS file
 on:
   schedule:
-    - cron: '23 00 * * *' # 每天早上 7 点执行
+    - cron: '14 06 * * *' # 每天早上 7 点执行
 jobs:
   download:
     runs-on: ubuntu-latest
